@@ -2,7 +2,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title id="doc-title">REKAP PARKIR</title>
+<title id="doc-title">REKAP PARKIR - YOUR NAME</title>
 <style>
 body {font-family:Arial; margin:8px; background:#f0f8ff;}
 .header {background:rgba(0,75,147,0.1); padding:10px; text-align:center; border:2px solid #004B93; border-radius:10px;}
@@ -35,7 +35,7 @@ tr:nth-child(even) {background:rgba(0,75,147,0.05);}
 <div class="header">
   <img src="https://i.imgur.com/8KmZW3V.jpg" alt="Pajero">
   <h2>REKAP PARKIR TANPA KARCIS</h2>
-  <h3 id="header-nama">INDRA CAHYA LAKSANA</h3>
+  <h3 id="header-nama">YOUR NAME</h3>
 </div>
 
 <div class="no-print">
@@ -74,12 +74,13 @@ tr:nth-child(even) {background:rgba(0,75,147,0.05);}
 <div class="footer-ttd">
   Menyerahkan,<br><br>
   Tgl:......../......../........<br><br><br>
-  <b id="ttd-nama">INDRA CAHYA LAKSANA</b>
+  <b id="ttd-nama">YOUR NAME</b>
 </div>
 
 <script>
 const STORAGE_KEY = 'parkirDanang';
 const NAMA_KEY = 'parkirNamaPemilik';
+const DEFAULT_NAMA = 'YOUR NAME';
 
 let data = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 
@@ -88,9 +89,9 @@ function inisialisasiNama() {
   let namaTersimpan = localStorage.getItem(NAMA_KEY);
   
   if (!namaTersimpan) {
-    namaTersimpan = prompt("Masukkan Nama Pemilik Rekap Parkir:", "INDRA CAHYA LAKSANA");
+    namaTersimpan = prompt("Masukkan Nama Pemilik Rekap Parkir:", DEFAULT_NAMA);
     if (!namaTersimpan || !namaTersimpan.trim()) {
-      namaTersimpan = "INDRA CAHYA LAKSANA";
+      namaTersimpan = DEFAULT_NAMA;
     }
     localStorage.setItem(NAMA_KEY, namaTersimpan.trim());
   }
@@ -108,12 +109,13 @@ function terapkanNama(nama) {
 
 // Fungsi jika pengguna ingin mengubah nama lewat tombol
 function mintaNamaBaru() {
-  let namaLama = localStorage.getItem(NAMA_KEY) || "INDRA CAHYA LAKSANA";
+  let namaLama = localStorage.getItem(NAMA_KEY) || DEFAULT_NAMA;
   let namaBaru = prompt("Edit Nama Pemilik:", namaLama);
   
-  if (namaBaru !== null && namaBaru.trim() !== "") {
-    localStorage.setItem(NAMA_KEY, namaBaru.trim());
-    terapkanNama(namaBaru.trim());
+  if (namaBaru !== null) {
+    let namaSimpan = namaBaru.trim() === "" ? DEFAULT_NAMA : namaBaru.trim();
+    localStorage.setItem(NAMA_KEY, namaSimpan);
+    terapkanNama(namaSimpan);
   }
 }
 
